@@ -128,23 +128,8 @@ def incoming_call():
         # or the active user is already in a call, play a recording
         voice_start = {
             'connect': active_user['phonenumber'],
-            'failed': {'play': f"{config['base_url']}:{config['port']}/static/busy.wav"},
-            'busy': {'play': f"{config['base_url']}:{config['port']}/static/busy.wav"},
         }
 
-    # Return a recording if there isn't a active user
-    else:
-        voice_start = {'play': f"{config['base_url']}:{config['port']}/static/busy.wav"}
-
-    print(json.dumps(voice_start))
-
     return json.dumps(voice_start)
-
-#
-# Serve static files from the static directory specified in config.toml
-#
-@app.route('/static/<filepath:path>')
-def server_static(filepath):
-    return static_file(filepath, root=config['static_dir'])
 
 run(app, host=config['host'], port=config['port'])
