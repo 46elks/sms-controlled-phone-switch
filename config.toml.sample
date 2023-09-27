@@ -1,0 +1,11 @@
+host = "0.0.0.0"
+port = 8080
+
+# Set this to the domain where this server will be available on via the Internet.
+# 46elks API needs to be able to reach this URL to deliver webhooks for incoming
+# messages and calls
+base_url = "http://localhost"
+
+# "Be careful when specifying a relative root-path such as root='./static/files'.
+#  The working directory (./) and the project directory are not always the same."
+static_dir = "./static"
