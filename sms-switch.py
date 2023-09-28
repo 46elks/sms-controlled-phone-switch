@@ -74,10 +74,7 @@ def incoming_sms():
     if user is None:
         return "Hey, you are not allowed to be here"
 
-    #
     # Set a new user as active
-    # Send "set Martin" in a sms
-    #
     if message.lower().startswith("set "):
         newUser = get_user_from_name(message[4:])
         if newUser is None:
@@ -88,9 +85,7 @@ def incoming_sms():
 
         return f"Set {newUser['name']} as active, they will recieve incoming calls now"
 
-    #
     # Ask the system which user is active
-    #
     elif message.lower().startswith("who"):
         activeUser = get_active_user()
         if activeUser == None:
@@ -101,14 +96,6 @@ def incoming_sms():
     elif message.lower().startswith("disable"):
         set_active_user("")
         return f"Disabled the phone switch (removed the active user)"
-
-    elif message.lower().startswith("help"):
-        set_active_user("")
-        return """Available commands:
-Set [name] x- Set user [name] as active user
-disable - Remove the active user
-who - Responds with name of the active user"""
-
 
     return "Sorry, I don't understand that command"
 
@@ -129,6 +116,11 @@ def incoming_call():
         voice_start = {
             'connect': active_user['phonenumber'],
         }
+
+    else:
+        voice_start = {
+                "play": "https://files.46elks.com/alge/demo_busy.wav"
+            }
 
     return json.dumps(voice_start)
 
